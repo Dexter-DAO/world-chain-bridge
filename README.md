@@ -1,4 +1,28 @@
-# How Solana checked a World ID enrollment ten days later
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Dexter-DAO/dexter-x402-sdk/main/assets/dexter-wordmark.svg" alt="Dexter" width="360">
+</p>
+
+<h1 align="center">World Chain Bridge</h1>
+
+<p align="center">
+  <strong>How Solana verified a ten-day-old World&nbsp;ID enrollment.</strong>
+</p>
+
+<p align="center">
+  <a href="archive/transactions.json"><img src="https://img.shields.io/badge/Solana-mainnet-6f5cff.svg" alt="Solana mainnet transactions"></a>
+  <a href="verify.mjs"><img src="https://img.shields.io/badge/proof-Groth16-555.svg" alt="Groth16 verifier"></a>
+  <a href="#verify-two-mainnet-proofs-offline"><img src="https://img.shields.io/badge/node-20%20%2F%2022-339933.svg" alt="Tested with Node 20 and 22"></a>
+</p>
+
+<p align="center">
+  <a href="#verify-two-mainnet-proofs-offline">Verify proofs</a> ·
+  <a href="SOURCES.md#original-code-excerpts">Rust source</a> ·
+  <a href="https://github.com/Dexter-DAO/demos">Demos</a>
+</p>
+
+<a id="how-solana-checked-a-world-id-enrollment-ten-days-later"></a>
+
+## The July enrollment
 
 On July 5, 2026, a person used World ID to establish a credit identity on Solana. Dexter's operator vouched for the enrollment so the person could open the record immediately. By July 15, the World ID registry on World Chain had moved on. Solana still upgraded the **same credit record** from operator-attested to proof-verified. The upgrade kept the original address and changed one byte, leaving the creation time and event counter in place. [July 5 enrollment](https://explorer.solana.com/tx/5cokzweFVwxBegnrtA3UZrpyghGGGRVHNjuQUqyvQ2S3AZ7FBhhKzUigGbYSNmCTGaXuhsBnT86MknJ6CSr7uw3P) · [July 15 upgrade](https://explorer.solana.com/tx/ryHhTwcGjhVDJVcWTu7EN2pnnGNmHU92c5C4ZCx3qShh6CE7cPF6dppWUbwmvszEnzfe6tqLFcc8WYp8t9DhqTZ)
 
