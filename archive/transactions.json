@@ -1,0 +1,68 @@
+{
+  "network": "Solana mainnet-beta",
+  "program": "Hg3wRaydFtJhYrdvYrKECacpJYDsC9Px7yKmpncj2fhc",
+  "bootstrap": {
+    "url": "https://explorer.solana.com/tx/4WxbAdvjpJBo3r8BvuvmzqgxtmVCaqJJRo1RAMTpFLYcvEsvHoKbjr8Uj56qS9AdFJ4voiPxACHTwC45kzV3hY5d",
+    "solana_slot": 429995465,
+    "utc": "2026-07-01T01:37:40+00:00",
+    "ethereum_beacon_slot": 14670208,
+    "header": "e688259877546b7fa5454a91d6fdff65d136e9b82248f122ec8c048e2bb90e16",
+    "current_committee": "73cc75b21e85f2a4f43acad5c64c3967a2296fa170b86b72906541ade8b61dd3"
+  },
+  "proofs": [
+    {
+      "url": "https://explorer.solana.com/tx/2MZTSvWiqa165NDMceqiyuZLari9zK3QS4sX8YhJQXfinWoxJssyKZV1bw7EZMJeDCJtUjkhoGj1reJfpqCz59wR",
+      "solana_slot": 429995844,
+      "utc": "2026-07-01T01:40:11+00:00",
+      "instruction": "establish_root",
+      "compute_units": 326200,
+      "proof": {
+        "file": "first-proof.bin",
+        "sha256": "8da82efe43534256304d1f696b7e762f76cd9d5d610f6c4d2f5a2e6fa74b9580",
+        "bytes": 356
+      },
+      "public_values": {
+        "file": "first-public-values.bin",
+        "sha256": "b9ece75892fdfd62df07dd1f4f585eafb13cfadba7742b04b9741e70f9ef92f4",
+        "bytes": 448
+      }
+    },
+    {
+      "url": "https://explorer.solana.com/tx/SDe73CXzh7dnuxrDNuUxQYbYzg5WgU8hcPWtfJANqb5c7AbNCnmycr52HZpYgnuNsF7YJDzSWF9Da4vQBAjuMbj",
+      "solana_slot": 430001341,
+      "utc": "2026-07-01T02:17:04+00:00",
+      "instruction": "establish_root",
+      "compute_units": 323562,
+      "proof": {
+        "file": "second-proof.bin",
+        "sha256": "2fec209bf41fd91ef4834dc903f8d1d225ad4f81f55f0af2b3051734ab82dbdf",
+        "bytes": 356
+      },
+      "public_values": {
+        "file": "second-public-values.bin",
+        "sha256": "e4c0738074f6fa029e81cd9bbb347af7a9f1104c91b6bc0f56ea424e3f978641",
+        "bytes": 448
+      }
+    }
+  ],
+  "credit_record_history": {
+    "enrollment": {
+      "url": "https://explorer.solana.com/tx/5cokzweFVwxBegnrtA3UZrpyghGGGRVHNjuQUqyvQ2S3AZ7FBhhKzUigGbYSNmCTGaXuhsBnT86MknJ6CSr7uw3P",
+      "instruction": "establish_credit_root_trusted",
+      "solana_slot": 430855563,
+      "utc": "2026-07-05T01:59:35+00:00"
+    },
+    "history": {
+      "url": "https://explorer.solana.com/tx/2SYRfu3YqBRYJCziJqFZPkfmpJqg2BhdXNYM5tMCSVtDVkhY2r2grPb76h56z4qtZUnCQAihPKfVHFro84AVASZw",
+      "instruction": "establish_root",
+      "solana_slot": 433136648,
+      "utc": "2026-07-15T20:54:33+00:00"
+    },
+    "upgrade": {
+      "url": "https://explorer.solana.com/tx/ryHhTwcGjhVDJVcWTu7EN2pnnGNmHU92c5C4ZCx3qShh6CE7cPF6dppWUbwmvszEnzfe6tqLFcc8WYp8t9DhqTZ",
+      "instruction": "upgrade_credit_root",
+      "solana_slot": 433137334,
+      "utc": "2026-07-15T20:59:14+00:00"
+    }
+  }
+}
