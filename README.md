@@ -5,7 +5,7 @@
 <h1 align="center">World Chain Bridge</h1>
 
 <p align="center">
-  <strong>How Solana verified a ten-day-old World&nbsp;ID enrollment.</strong>
+  <strong>Solana verified World&nbsp;ID against the registry on World&nbsp;Chain.</strong>
 </p>
 
 <p align="center">
@@ -15,22 +15,29 @@
 </p>
 
 <p align="center">
-  <a href="#verify-two-mainnet-proofs-offline">Verify proofs</a> ·
+  <a href="#how-solana-checked-world-chain">Proof path</a> ·
+  <a href="#verify-two-mainnet-proofs-offline">Verify</a> ·
   <a href="SOURCES.md#original-code-excerpts">Rust source</a> ·
   <a href="https://github.com/Dexter-DAO/demos">Demos</a>
 </p>
+
+World ID's registry lives on World Chain, an OP Stack rollup on Ethereum. To check a person's enrollment on Solana, Dexter needed to establish which version of that registry it could trust. Dexter extended the SP1-Helios Ethereum light client to prove which World Chain state had survived the rollup's dispute process and what the registry held in that state. Anyone could submit the proof on Solana.
+
+<a id="what-crossed-the-bridge"></a>
+
+## How Solana checked World Chain
+
+The light client followed Ethereum finality from a trusted checkpoint. In the finalized Ethereum state, Dexter's proof program looked up the dispute game that World Chain's anchor registry had selected. It required the game to have resolved in the defender's favor. The program then reconstructed the game's winning claim from the World Chain state root, block hash and other committed fields. With that state root established, it could verify the World ID contract's registry storage. [World Chain proof code](source/world-chain-anchor.rs)
+
+On Solana, the receiving program verified the Groth16 proof and matched its starting beacon slot, header and sync committee to the checkpoint on file. It advanced the checkpoint and recorded the proven registry root together. Dexter's relay could deliver an update without having the authority to pick its result. The first checkpoint came from an authorized signer. World Chain's dispute contracts and governance determined which game qualified. [Solana checkpoint code](source/advance-checkpoint.rs) · [Bootstrap transaction](https://explorer.solana.com/tx/4WxbAdvjpJBo3r8BvuvmzqgxtmVCaqJJRo1RAMTpFLYcvEsvHoKbjr8Uj56qS9AdFJ4voiPxACHTwC45kzV3hY5d)
 
 <a id="how-solana-checked-a-world-id-enrollment-ten-days-later"></a>
 
 ## The July enrollment
 
-On July 5, 2026, a person used World ID to establish a credit identity on Solana. Dexter's operator vouched for the enrollment so the person could open the record immediately. By July 15, the World ID registry on World Chain had moved on. Solana still upgraded the **same credit record** from operator-attested to proof-verified. The upgrade kept the original address and changed one byte, leaving the creation time and event counter in place. [July 5 enrollment](https://explorer.solana.com/tx/5cokzweFVwxBegnrtA3UZrpyghGGGRVHNjuQUqyvQ2S3AZ7FBhhKzUigGbYSNmCTGaXuhsBnT86MknJ6CSr7uw3P) · [July 15 upgrade](https://explorer.solana.com/tx/ryHhTwcGjhVDJVcWTu7EN2pnnGNmHU92c5C4ZCx3qShh6CE7cPF6dppWUbwmvszEnzfe6tqLFcc8WYp8t9DhqTZ)
+On July 5, 2026, Dexter's operator vouched for a person's World ID enrollment so the person could open a credit record on Solana. The registry changed after they enrolled. On July 15, the bridge proved that the root from their original enrollment was in World Chain's registry history. [Enrollment](https://explorer.solana.com/tx/5cokzweFVwxBegnrtA3UZrpyghGGGRVHNjuQUqyvQ2S3AZ7FBhhKzUigGbYSNmCTGaXuhsBnT86MknJ6CSr7uw3P) · [Registry update](https://explorer.solana.com/tx/2SYRfu3YqBRYJCziJqFZPkfmpJqg2BhdXNYM5tMCSVtDVkhY2r2grPb76h56z4qtZUnCQAihPKfVHFro84AVASZw)
 
-A person's proof refers to the state of the registry when they used it. Solana needed to verify that the registry had held that value. At 20:54 UTC on July 15, it accepted a proof that included the earlier registry root in World Chain's history. Four minutes and 41 seconds later, the credit program verified the person's proof against that history and changed the record's version. The registry's latest root at the time was already different. [Registry update](https://explorer.solana.com/tx/2SYRfu3YqBRYJCziJqFZPkfmpJqg2BhdXNYM5tMCSVtDVkhY2r2grPb76h56z4qtZUnCQAihPKfVHFro84AVASZw) · [Account upgrade code](source/upgrade-record.rs)
-
-## What crossed the bridge
-
-Dexter extended an Ethereum light client to follow a specific claim from Ethereum to World Chain. The proof program checked which rollup dispute game Ethereum had recorded, required a win for the defender, and recomputed the game's winning claim from the World Chain block data. That let it verify what the World ID registry stored at that block. On Solana, anyone could submit the result. The receiving program checked the proof and required it to continue from the Ethereum checkpoint the program already held. Trust began at the initial checkpoint and depended on the rollup's dispute process. [World Chain proof code](source/world-chain-anchor.rs) · [Solana checkpoint code](source/advance-checkpoint.rs) · [Bootstrap transaction](https://explorer.solana.com/tx/4WxbAdvjpJBo3r8BvuvmzqgxtmVCaqJJRo1RAMTpFLYcvEsvHoKbjr8Uj56qS9AdFJ4voiPxACHTwC45kzV3hY5d)
+The credit program checked the person's original World ID proof against that history. It matched the proof's identifier (the nullifier) to the one already in the account. A one-byte change upgraded the same record from operator-attested to proof-verified. Its address, creation time and event count stayed intact. [Account upgrade](https://explorer.solana.com/tx/ryHhTwcGjhVDJVcWTu7EN2pnnGNmHU92c5C4ZCx3qShh6CE7cPF6dppWUbwmvszEnzfe6tqLFcc8WYp8t9DhqTZ) · [Account upgrade code](source/upgrade-record.rs)
 
 ## Verify two mainnet proofs offline
 
@@ -44,6 +51,6 @@ The command verifies two consecutive July 1 proofs and prints the World ID regis
 
 ## What the archive covers
 
-The offline check reads the original proof and public values from the two July 1 registry updates. The July 15 transactions used a later guest that could also attest historical roots. Follow the three enrollment and upgrade receipts above to inspect that case separately. The archive supplies no individual credential or witness. [Transaction index](archive/transactions.json)
+The offline check reads the original proof and public values from the two July 1 registry updates. The July 15 transactions used a later guest that could also attest historical roots. The [July enrollment](#the-july-enrollment) has separate mainnet receipts. The archive supplies no individual credential or witness. [Transaction index](archive/transactions.json)
 
 The registry can record a root permanently and later stop accepting it for new proofs. Historical membership answers the July enrollment question. Accepting a credential today also depends on its validity at the time of presentation. Dexter closed the original Solana bridge accounts on October 31. This repository documents the July deployment. [Original cache closure](https://explorer.solana.com/tx/2YHW2Yx768The4AdPLXSyvudF7RsDL38AKeeKrm6PxB4C1oKEceBDNXajGp3yGG5oJ2EJdn9xbYT6e9xnQMsLWYJ)
