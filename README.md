@@ -15,8 +15,8 @@
 </p>
 
 <p align="center">
-  <a href="#how-solana-checked-world-chain">How it worked</a> ·
-  <a href="#verify-two-mainnet-proofs-offline">Verify proofs</a> ·
+  <a href="#how-solana-checked-world-chain">Proof path</a> ·
+  <a href="#verify-two-mainnet-proofs-offline">Verify</a> ·
   <a href="SOURCES.md#original-code-excerpts">Rust source</a> ·
   <a href="https://github.com/Dexter-DAO/demos">Demos</a>
 </p>
